@@ -8,10 +8,10 @@ function CreateVideo() {
     </div>
     <div className="text-center">
       <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
-        WalletSync
+        VoiceUp
       </h1>
       <p className="mt-6 text-lg leading-8 text-gray-600">
-       A Powerful wallet to send assets to Multiple users on their desired chain and asset preference
+       A platform where the we dont give news, we speak facts
       </p>
       <div className="mt-10 flex items-center justify-center gap-x-6">
         <a

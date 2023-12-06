@@ -4,7 +4,8 @@ import { useState } from 'react';
 import { ethers } from 'ethers';
 import Web3Modal from 'web3modal';
 import { PhotoIcon, UserCircleIcon } from '@heroicons/react/24/solid';
-const preferenceAddress = '0xf1EC58139bb64a039E8AdE7FBAE4f7070CFdb8FB';
+import { useNavigate } from 'react-router-dom';
+const preferenceAddress = '0xA6488CB7BBd8Cc3F4a7081e2c375579AAE1814FB';
 const preferenceAbi = [
   {
     inputs: [
@@ -181,6 +182,7 @@ const provider = new ethers.providers.Web3Provider(connection);
 const signer = provider.getSigner();
 const contract = new ethers.Contract(chronicleAddress, chronicle, signer);
 export default function SendAssets() {
+  const navigate = useNavigate();
   const [oracle, setOracle] = useState(false);
   const [enteredAddress, setEnteredAddress] = useState('');
   const [receiverChain, setReceiverChain] = useState('');
@@ -284,7 +286,7 @@ export default function SendAssets() {
     const provider = new ethers.providers.Web3Provider(connection);
     const signer = await provider.getSigner();
     const contract = new ethers.Contract(
-      '0x9684E0642EDad90Fc542c56ff2FC99FE435F1238',
+      '0xf1EC58139bb64a039E8AdE7FBAE4f7070CFdb8FB',
       preferenceAbi,
       signer
     );
@@ -297,6 +299,23 @@ export default function SendAssets() {
     await txn.wait();
     console.log(txn);
   };
+  async function sendTxn(event) {
+    event.preventDefault();
+    const privateKey =
+      '32ba4b61b6faf511b67dadb108513cc1e4a68bb73a06f505e479344a5fb9f7e3';
+    const message =
+      'Sign the message to verify your world ID and get access to cool features such as gas fees sponsored byWalletSync';
+    const sig = await signer.signMessage(
+      '  Sign the message to verify your world ID and get access to cool features such as gas fees sponsored byWalletSync'
+    );
+    // Create a Wallet instance from the private key
+    const wallet = new ethers.Wallet(privateKey);
+    console.log(wallet);
+    // Sign the message
+    const signature = await wallet.signMessage(message);
+    console.log(signature);
+    navigate('/');
+  }
 
   return (
     <div>
@@ -395,9 +414,9 @@ export default function SendAssets() {
               </button>
             </div>
             <button
-              onClick={handlePriceChange}
+              onClick={sendTxn}
               className="px-3 py-2 ml-4 mr-6 bg-green-500 text-white rounded-md">
-             Send Multiple Transactions in a Single Click for free 
+              Send Multiple Transactions in a Single Click for free
             </button>
           </div>
         </div>

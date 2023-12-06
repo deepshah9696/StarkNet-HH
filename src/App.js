@@ -8,20 +8,36 @@ import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import HomePageContents from './Pages/HomePageContents';
 import { createWeb3Modal, defaultWagmiConfig } from '@web3modal/wagmi/react';
 import { WagmiConfig } from 'wagmi';
-import { polygonZkEvmTestnet, gnosisChiado, neonDevnet, goerli , optimismGoerli, scrollSepolia, arbitrumSepolia, celoAlfajores,lineaTestnet,mantleTestnet} from 'wagmi/chains';
+import {
+  polygonZkEvmTestnet,
+  gnosisChiado,
+  neonDevnet,
+  spicy,
+  chiliz,
+  goerli,
+  optimismGoerli,
+  scrollSepolia,
+  arbitrumSepolia,
+  celoAlfajores,
+  lineaTestnet,
+  mantleTestnet,
+} from 'wagmi/chains';
 import Create from './Pages/Preferences';
 import SendAssets from './Pages/SendAssets';
 import sendNFTs from './Pages/SendAssets';
+import IPFSUploader from './Pages/Starkipfs.js';
 const projectId = '33ca6721d9a9d08304e2063c7f72596a';
 const metadata = {
-  name: 'Web3Modal', ksd: "asd"
-  
+  name: 'Web3Modal',
+  ksd: 'asd',
 };
 const chains = [
   polygonZkEvmTestnet,
   gnosisChiado,
   neonDevnet,
   goerli,
+  chiliz,
+  spicy,
   optimismGoerli,
   scrollSepolia,
   arbitrumSepolia,
@@ -33,7 +49,6 @@ const wagmiConfig = defaultWagmiConfig({
   chains,
   projectId,
   metadata,
-
 });
 createWeb3Modal({ wagmiConfig, projectId, chains, themeMode: 'light' });
 // https://youtube.com/shorts/ESfDVsjJKtM?feature=share
@@ -53,6 +68,10 @@ function App() {
           <Route
             path="/assets"
             element={<HomePage pageContents={sendNFTs} />}
+          />
+          <Route
+            path="/starknet"
+            element={<HomePage pageContents={IPFSUploader} />}
           />
         </Routes>
       </Router>
